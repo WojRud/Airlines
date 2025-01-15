@@ -19,7 +19,7 @@ class Main {
     static Manager[] planes;
     static int[] routeToPlane;
 
-    static int getsizeAt(int planeId, int day) {
+    static int getSizeAt(int planeId, int day) {
         Manager plane = planes[planeId];
         int bestCap = 0;
         int bestDay = -1;
@@ -40,7 +40,7 @@ class Main {
     }
 
     static void p(int planeId, int p, int t) {
-        int oldCap = getsizeAt(planeId, t-1);
+        int oldCap = getSizeAt(planeId, t-1);
         planes[planeId].changes.add(new int[]{t, p});
         planes[planeId].changes.add(new int[]{t+1, oldCap});
     }
@@ -80,11 +80,11 @@ class Main {
                     for (int r = startR; r <= endR; r++) {
                         int planeId = routeToPlane[r];
                         if (planeId != 0) {
-                            int capNow = getsizeAt(planeId, tDay);
+                            int capNow = getSizeAt(planeId, tDay);
                             if (capNow > 0) {
                                 long sumForPlane = 0;
                                 for (int day = 0; day < tDay; day++) {
-                                    sumForPlane += getsizeAt(planeId, day);
+                                    sumForPlane += getSizeAt(planeId, day);
                                 }
                                 answer += sumForPlane;
                             }
