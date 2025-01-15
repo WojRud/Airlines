@@ -70,46 +70,50 @@ class Main {
         for (int j=0; j<q; j++) {
             String[] query = br.readLine().split(" ");
             String type = query[0];
-            if (type.equals("Q")) {
-                int startR = Integer.parseInt(query[1]);
-                int endR = Integer.parseInt(query[2]);
-                int tDay = Integer.parseInt(query[3]);
+            switch (type) {
+                case "Q" -> {
+                    int startR = Integer.parseInt(query[1]);
+                    int endR = Integer.parseInt(query[2]);
+                    int tDay = Integer.parseInt(query[3]);
 
-                long answer = 0;
-                for (int r = startR; r <= endR; r++) {
-                    int planeId = routeToPlane[r];
-                    if (planeId != 0) {
-                        int capNow = getsizeAt(planeId, tDay);
-                        if (capNow > 0) {
-                            long sumForPlane = 0;
-                            for (int day = 0; day < tDay; day++) {
-                                sumForPlane += getsizeAt(planeId, day);
+                    long answer = 0;
+                    for (int r = startR; r <= endR; r++) {
+                        int planeId = routeToPlane[r];
+                        if (planeId != 0) {
+                            int capNow = getsizeAt(planeId, tDay);
+                            if (capNow > 0) {
+                                long sumForPlane = 0;
+                                for (int day = 0; day < tDay; day++) {
+                                    sumForPlane += getsizeAt(planeId, day);
+                                }
+                                answer += sumForPlane;
                             }
-                            answer += sumForPlane;
                         }
                     }
+                    System.out.println(answer);
+
                 }
-                System.out.println(answer);
+                case "C" -> {
+                    int i = Integer.parseInt(query[1]);
+                    int tDay = Integer.parseInt(query[2]);
+                    c(i, tDay);
 
-            } else if (type.equals("C")) {
-                int i = Integer.parseInt(query[1]);
-                int tDay = Integer.parseInt(query[2]);
-                c(i, tDay);
+                }
+                case "P" -> {
+                    int i = Integer.parseInt(query[1]);
+                    int pVal = Integer.parseInt(query[2]);
+                    int tDay = Integer.parseInt(query[3]);
+                    p(i, pVal, tDay);
 
-            } else if (type.equals("P")) {
-                int i = Integer.parseInt(query[1]);
-                int pVal = Integer.parseInt(query[2]);
-                int tDay = Integer.parseInt(query[3]);
-                p(i, pVal, tDay);
+                }
+                case "A" -> {
+                    int i = Integer.parseInt(query[1]);
+                    int pVal = Integer.parseInt(query[2]);
+                    int tDay = Integer.parseInt(query[3]);
+                    a(i, pVal, tDay);
 
-            } else if (type.equals("A")) {
-                int i = Integer.parseInt(query[1]);
-                int pVal = Integer.parseInt(query[2]);
-                int tDay = Integer.parseInt(query[3]);
-                a(i, pVal, tDay);
-
-            } else {
-                System.out.println("Error");
+                }
+                default -> System.out.println("Error");
             }
         }
     }
